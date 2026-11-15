@@ -23,18 +23,20 @@
   },
   "t3": {
     "repo": "pingdotgg/t3code",
-    "commit": "9a35ab0afeae64ac7c3bf92d674ead365cf55e10",
+    "commit": "5a15495de4c148bb141f08b99949728f9df8dfea",
     "paths": [
       "apps/server/src/mcp/McpToolExposure.ts",
       "apps/server/src/mcp/toolkits/attachment/tools.ts",
       "apps/server/src/mcp/toolkits/device/tools.ts",
       "apps/server/src/mcp/toolkits/environment/tools.ts",
       "apps/server/src/mcp/toolkits/html/tools.ts",
+      "apps/server/src/mcp/toolkits/message/tools.ts",
       "apps/server/src/mcp/toolkits/orchestrator/tools.ts",
       "apps/server/src/mcp/toolkits/preview/tools.ts",
       "apps/server/src/mcp/toolkits/previewControls/tools.ts",
       "apps/server/src/mcp/toolkits/project/tools.ts",
       "apps/server/src/mcp/toolkits/pullRequests/tools.ts",
+      "apps/server/src/mcp/toolkits/theme/tools.ts",
       "apps/server/src/mcp/toolkits/thread/tools.ts",
       "apps/server/src/mcp/toolkits/toolSearch/tools.ts",
       "apps/server/src/mcp/toolkits/worktree/tools.ts",
@@ -48,7 +50,8 @@
       "packages/contracts/src/worktreeMcp.ts",
       "packages/provider-core/src/server/orchestrationInstructions.ts",
       "packages/provider-core/src/server/runtimeInstructions.ts",
-      "packages/shared/src/htmlRender.ts"
+      "packages/shared/src/htmlRender.ts",
+      "packages/shared/src/toolOutput.ts"
     ]
   }
 }
