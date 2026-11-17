@@ -336,10 +336,10 @@ describe("sync", () => {
 
   test("merges upstream additions, deletions, and edits, and check flags the conflict left behind", () => {
     const { dir, upstream } = syncFixture();
-    writeFileSync(join(upstream, "pstack/skills/reflect/references/new.md"), "New upstream file.\n");
+    writeFileSync(join(upstream, "pstack/skills/statechart/references/new.md"), "New upstream file.\n");
     mkdirSync(join(upstream, "pstack/skills/fresh"));
     writeFileSync(join(upstream, "pstack/skills/fresh/SKILL.md"), "---\nname: fresh\ndescription: x\ndisable-model-invocation: true\n---\n");
-    rmSync(join(upstream, "pstack/skills/reflect/references/tooling-reviewer.md"));
+    rmSync(join(upstream, "pstack/skills/statechart/references/render.md"));
     writeFileSync(join(upstream, "pstack/skills/poteto-help/SKILL.md"), "Rewritten upstream.\n");
     writeFileSync(join(upstream, "pstack/.cursor-plugin/plugin.json"), '{"name":"pstack","version":"9.9.9"}\n');
     commitAll(upstream, "B");
@@ -352,15 +352,15 @@ describe("sync", () => {
         "skills/fresh/SKILL.md",
         "skills/fresh/agents/openai.yaml",
         "skills/poteto-help/agents/openai.yaml",
-        "skills/reflect/references/new.md",
-        "skills/reflect/references/tooling-reviewer.md",
+        "skills/statechart/references/new.md",
+        "skills/statechart/references/render.md",
       ],
       merged: [],
       conflicts: ["skills/poteto-help/SKILL.md: overlapping edits"],
       version: "9.9.9",
     });
-    expect(readFileSync(join(dir, "plugins/pstack/skills/reflect/references/new.md"), "utf8")).toBe("New upstream file.\n");
-    expect(existsSync(join(dir, "plugins/pstack/skills/reflect/references/tooling-reviewer.md"))).toBe(false);
+    expect(readFileSync(join(dir, "plugins/pstack/skills/statechart/references/new.md"), "utf8")).toBe("New upstream file.\n");
+    expect(existsSync(join(dir, "plugins/pstack/skills/statechart/references/render.md"))).toBe(false);
     expect(readFileSync(join(dir, "plugins/pstack/skills/fresh/agents/openai.yaml"), "utf8")).toBe("policy:\n  allow_implicit_invocation: false\n");
     expect(existsSync(join(dir, "plugins/pstack/skills/poteto-help/agents/openai.yaml"))).toBe(false);
     expect(JSON.parse(readFileSync(join(dir, "pins.json"), "utf8")).upstream.commit).toBe(git(upstream, "rev-parse", "HEAD"));
