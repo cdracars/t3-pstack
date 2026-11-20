@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, normalize } from "node:path";
+import { join, posix } from "node:path";
 import {
   PLUGIN_DIR,
   ROOT,
@@ -45,7 +45,7 @@ export function linkProblems(tree: Tree): string[] {
       const target = m[1]!.split("#")[0]!;
       // Skip URLs and bare placeholders such as `[text](url)` in prompt templates.
       if (!target || /^[a-z][a-z0-9+.-]*:/i.test(target) || !/[./]/.test(target)) continue;
-      const resolved = normalize(join(dirname(path), decodeURI(target))).replace(/\/$/, "");
+      const resolved = posix.normalize(posix.join(posix.dirname(path), decodeURI(target))).replace(/\/$/, "");
       const isDir = [...tree.keys()].some((p) => p.startsWith(`${resolved}/`));
       if (!tree.has(resolved) && !isDir) problems.push(`${path}: broken link ${m[1]}`);
     }

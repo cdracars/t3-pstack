@@ -1,5 +1,6 @@
 .cache/
 .audit/
 node_modules/
+__pycache__/
 .DS_Store
 .claude/settings.local.json

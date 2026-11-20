@@ -1,5 +1,11 @@
 # Notice
 
+The namespaced skills under `trial/skills/` are adaptations by cdracars of Lauren
+Tan's pstack workflows, informed by pmwoz's T3 port. Their exact source files and
+hashes are recorded in `trial/sources.json`; bundled references carry the same
+provenance and both licenses. `trial/runtime.md` is the fork's shared adapter.
+The full plugin and pinned upstream snapshots remain available separately.
+
 t3-pstack redistributes files from [cursor/plugins](https://github.com/cursor/plugins), with the changes listed in `drift.json`.
 
 | Files | Source | License |

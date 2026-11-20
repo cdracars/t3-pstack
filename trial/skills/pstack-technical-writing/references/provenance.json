@@ -1,0 +1,14 @@
+{
+  "base": {
+    "port_repository": "https://github.com/pmwoz/t3-pstack",
+    "port_commit": "fbbef31fc1d427bab565f1d8ada76388712acc32",
+    "cursor_commit": "e58dd043600587dbaf58ba315e7f2b38373eeb43",
+    "cursor_version": "0.15.44"
+  },
+  "skill": {
+    "name": "pstack-technical-writing",
+    "source": "plugins/pstack/skills/technical-writing/SKILL.md",
+    "sha256": "0a620885599cdde5a0a31fa39878144c10f61c894b56bf4a9ff779496e718b14",
+    "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/technical-writing/SKILL.md"
+  }
+}

@@ -1,5 +1,10 @@
 # t3-pstack
 
+This is [cdracars' experimental fork](https://github.com/cdracars/t3-pstack) of
+pmwoz's T3 port. Start with the [nine-skill Windows/Codex/Claude trial](trial/README.md).
+It installs standalone `pstack-` skills without plugin hooks or model defaults.
+The full upstream plugin instructions below describe the original distribution.
+
 [pstack](https://github.com/cursor/plugins/tree/main/pstack) is Lauren Tan's set of agent skills for Cursor: `poteto-mode` for everyday work, plus skills for design, review, parallel work, and explaining code.
 
 t3-pstack is the same skill pack as a plugin for [T3 Code](https://github.com/pingdotgg/t3code). It works with both the Claude and the Codex provider, and this repo merges each new upstream version.

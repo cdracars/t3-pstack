@@ -1,0 +1,14 @@
+{
+  "base": {
+    "port_repository": "https://github.com/pmwoz/t3-pstack",
+    "port_commit": "fbbef31fc1d427bab565f1d8ada76388712acc32",
+    "cursor_commit": "e58dd043600587dbaf58ba315e7f2b38373eeb43",
+    "cursor_version": "0.15.44"
+  },
+  "skill": {
+    "name": "pstack-correct",
+    "source": "plugins/pstack/skills/correct/SKILL.md",
+    "sha256": "e347045d00c967a0b831ef883cc6ac79d21329aa10b5968637df95de7febf0ba",
+    "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/correct/SKILL.md"
+  }
+}
