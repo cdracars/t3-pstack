@@ -1,0 +1,64 @@
+{
+  "base": {
+    "port_repository": "https://github.com/pmwoz/t3-pstack",
+    "port_commit": "fbbef31fc1d427bab565f1d8ada76388712acc32",
+    "cursor_commit": "e58dd043600587dbaf58ba315e7f2b38373eeb43",
+    "cursor_version": "0.15.44"
+  },
+  "skills": [
+    {
+      "name": "pstack-recall",
+      "source": "plugins/pstack/skills/recall/SKILL.md",
+      "sha256": "1f4eda450650a7bd3948f44489a94f6c692f6a14ab9ce56ab9ed6f60c50e2258",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/recall/SKILL.md"
+    },
+    {
+      "name": "pstack-create-verification-skill",
+      "source": "plugins/pstack/skills/create-verification-skill/SKILL.md",
+      "sha256": "d353973547bf8ad8977eca645f4cd4feaed0d32f4b43d1448f906b0a76c4d694",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/create-verification-skill/SKILL.md"
+    },
+    {
+      "name": "pstack-maintain-verification-skill",
+      "source": "plugins/pstack/skills/maintain-verification-skill/SKILL.md",
+      "sha256": "515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/maintain-verification-skill/SKILL.md"
+    },
+    {
+      "name": "pstack-technical-writing",
+      "source": "plugins/pstack/skills/technical-writing/SKILL.md",
+      "sha256": "0a620885599cdde5a0a31fa39878144c10f61c894b56bf4a9ff779496e718b14",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/technical-writing/SKILL.md"
+    },
+    {
+      "name": "pstack-show-me-your-work",
+      "source": "plugins/pstack/skills/show-me-your-work/SKILL.md",
+      "sha256": "ec29326ac20515f2941198205bec615320a55b21659692e19650530dbf217bde",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/show-me-your-work/SKILL.md"
+    },
+    {
+      "name": "pstack-ketchup",
+      "source": "plugins/pstack/skills/ketchup/SKILL.md",
+      "sha256": "f2923ffd14f6fc778f75a47aaed1f317fb5fd00b5701ca769d6446c74106dead",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/ketchup/SKILL.md"
+    },
+    {
+      "name": "pstack-correct",
+      "source": "plugins/pstack/skills/correct/SKILL.md",
+      "sha256": "e347045d00c967a0b831ef883cc6ac79d21329aa10b5968637df95de7febf0ba",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/correct/SKILL.md"
+    },
+    {
+      "name": "pstack-blast-radius",
+      "source": "plugins/pstack/skills/blast-radius/SKILL.md",
+      "sha256": "4248d03e22365207d2e5f90c9542720f80a88a6b42fd542ef88dde3cf9f9223f",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/blast-radius/SKILL.md"
+    },
+    {
+      "name": "pstack-automate-me",
+      "source": "plugins/pstack/skills/automate-me/SKILL.md",
+      "sha256": "ffdb2db6d56b29518f50837d4e5d9194034bb3a767d77eb76efe82351ab1489c",
+      "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/automate-me/SKILL.md"
+    }
+  ]
+}

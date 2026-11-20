@@ -13,3 +13,5 @@ jobs:
       - run: bun test tools
       - run: bun run typecheck
       - run: bun run check
+      - run: python tools/trial.py check
+      - run: python -m unittest discover -s tools -p test_trial.py -v

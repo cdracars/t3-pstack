@@ -1,0 +1,14 @@
+{
+  "base": {
+    "port_repository": "https://github.com/pmwoz/t3-pstack",
+    "port_commit": "fbbef31fc1d427bab565f1d8ada76388712acc32",
+    "cursor_commit": "e58dd043600587dbaf58ba315e7f2b38373eeb43",
+    "cursor_version": "0.15.44"
+  },
+  "skill": {
+    "name": "pstack-automate-me",
+    "source": "plugins/pstack/skills/automate-me/SKILL.md",
+    "sha256": "ffdb2db6d56b29518f50837d4e5d9194034bb3a767d77eb76efe82351ab1489c",
+    "source_url": "https://github.com/pmwoz/t3-pstack/blob/fbbef31fc1d427bab565f1d8ada76388712acc32/plugins/pstack/skills/automate-me/SKILL.md"
+  }
+}

@@ -1,4 +1,4 @@
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import {
@@ -74,7 +74,7 @@ if (import.meta.main) {
   if (missing.length)
     throw new Error(`upstream ${sha.slice(0, 10)} has no ${missing.join(", ")}. Point each at its new upstream path in pins.json, or remove it there.`);
   const fresh = mkdtempSync(join(tmpdir(), "t3p-upstream-"));
-  run(["tar", "-x", "-C", fresh], { input: run(["git", "archive", sha, ...sources], { cwd: cache }).stdout });
+  run(["tar", "-x", "-C", fresh], { input: run(["git", "-c", "core.autocrlf=false", "archive", sha, ...sources], { cwd: cache }).stdout });
   const version: unknown = JSON.parse(readFileSync(join(fresh, VERSION_FILE), "utf8")).version;
   if (typeof version !== "string") throw new Error(`upstream ${VERSION_FILE} at ${sha.slice(0, 10)} has no version.`);
   const commits = run(["git", "log", "--format=%h %as %s", `${pins.upstream.commit}..${sha}`, "--", ...sources], { cwd: cache })
@@ -105,7 +105,7 @@ if (import.meta.main) {
   }
 
   rmSync(UPSTREAM_DIR, { recursive: true, force: true });
-  run(["cp", "-R", fresh, UPSTREAM_DIR]);
+  cpSync(fresh, UPSTREAM_DIR, { recursive: true });
   rmSync(fresh, { recursive: true });
   pins.upstream.commit = sha;
   pins.upstream.version = version;

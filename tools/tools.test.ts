@@ -1,12 +1,26 @@
-import { afterAll, describe, expect, test } from "bun:test";
+import { afterAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { appendFileSync, chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
-import { conflictProblems, driftProblems } from "./check.ts";
+import { delimiter, dirname, join } from "node:path";
+import { conflictProblems, driftProblems, linkProblems } from "./check.ts";
 import { PLUGIN_DIR, ROOT, expectedTree, loadPins, run, t3ToolNames, transform, type Tree } from "./lib.ts";
 import { decide, gitMerge3 } from "./sync.ts";
 
 const b = (s: string) => Buffer.from(s);
+
+// Windows file scanning can make the real repository-copy fixtures slow.
+if (process.platform === "win32") setDefaultTimeout(180_000);
+
+test("links use portable tree paths, including directory and parent links", () => {
+  const tree: Tree = new Map([
+    ["skills/a/SKILL.md", b("[other](../b/SKILL.md#body) [examples](references/examples/)")],
+    ["skills/b/SKILL.md", b("# Body")],
+    ["skills/a/references/examples/example.md", b("example")],
+  ]);
+  expect(linkProblems(tree)).toEqual([]);
+  tree.delete("skills/b/SKILL.md");
+  expect(linkProblems(tree)).toEqual(["skills/a/SKILL.md: broken link ../b/SKILL.md#body"]);
+});
 
 const temps: string[] = [];
 afterAll(() => temps.forEach((dir) => rmSync(dir, { recursive: true, force: true })));
@@ -17,7 +31,7 @@ const tempDir = () => {
 };
 
 const git = (cwd: string, ...args: string[]) =>
-  run(["git", "-c", "user.name=test", "-c", "user.email=test@example.com", ...args], { cwd }).stdout.toString().trimEnd();
+  run(["git", "-c", "core.autocrlf=false", "-c", "user.name=test", "-c", "user.email=test@example.com", ...args], { cwd }).stdout.toString().trimEnd();
 const commitAll = (cwd: string, message: string) => {
   git(cwd, "add", "-A");
   git(cwd, "commit", "-qm", message);
@@ -193,7 +207,7 @@ test("check rejects a T3 contract that lacks a pinned file", () => {
   const r = runTool(dir, "check.ts");
   expect(r.code).toBe(1);
   expect(r.stderr).toContain(`t3/contract/${path}: missing. Restore it with bun run t3:pin ${loadPins().t3.commit}.\n`);
-});
+}, 180_000);
 
 const head = "b".repeat(40);
 const tagged = "c".repeat(40);
@@ -218,10 +232,19 @@ writeFileSync(
   ].join("\n"),
 );
 chmodSync(join(ghDir, "gh"), 0o755);
+if (process.platform === "win32") {
+  // A .cmd shim reinterprets query-string ampersands. Use an executable so
+  // the fake CLI receives the same argv as the real gh.exe.
+  writeFileSync(join(ghDir, "gh.ts"), readFileSync(join(ghDir, "gh")));
+  const compiled = Bun.spawnSync([process.execPath, "build", join(ghDir, "gh.ts"), "--compile", "--outfile", join(ghDir, "gh.exe")], {
+    stdout: "pipe", stderr: "pipe",
+  });
+  if (compiled.exitCode !== 0) throw new Error(compiled.stderr.toString());
+}
 const fakeGh = (dir: string, script: string, env: Record<string, string>, args: string[] = []) =>
-  runTool(dir, script, { PATH: `${ghDir}:${process.env.PATH}`, CONTRACT: join(ROOT, "t3/contract"), ...env }, args);
+  runTool(dir, script, { PATH: `${ghDir}${delimiter}${process.env.PATH}`, CONTRACT: join(ROOT, "t3/contract"), ...env }, args);
 // A test that runs fakeGh copies the repo and spawns the stub gh once per contract file, which takes over 5 s on a loaded machine.
-const fakeGhTimeout = 60_000;
+const fakeGhTimeout = process.platform === "win32" ? 180_000 : 60_000;
 
 describe("t3:pin", () => {
   const pin = (dir: string, env: Record<string, string>) => fakeGh(dir, "t3.ts", env);
@@ -404,7 +427,7 @@ test("t3ToolNames resolves tool names held in constants", () => {
   expect([...t3ToolNames(contract)].sort()).toEqual(["html_render", "preview_open", "tool_search"]);
 });
 
-describe("session-start hook", () => {
+describe.skipIf(!Bun.which("sh"))("session-start hook", () => {
   const readPluginJson = (path: string) => JSON.parse(readFileSync(join(PLUGIN_DIR, path), "utf8"));
   const sessionStart = (hooksPath: string) => {
     const [group] = readPluginJson(hooksPath).hooks.SessionStart;
@@ -453,7 +476,7 @@ describe("session-start hook", () => {
   });
 });
 
-describe("pre-bash hook", () => {
+describe.skipIf(!Bun.which("sh"))("pre-bash hook", () => {
   const registered = JSON.parse(readFileSync(join(PLUGIN_DIR, "hooks/hooks.json"), "utf8")).hooks.PreToolUse;
   function preBash(command: string, { background = false, shell = "/bin/zsh", mode = "default" } = {}) {
     const [group] = registered;
